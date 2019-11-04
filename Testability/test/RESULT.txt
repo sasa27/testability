@@ -1,0 +1,204 @@
+===================C1===================(gateway)
+issue on input: ?response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [!command(Host=192.168.43.201;Dest=192.168.43.202;data=0402000000;group=01;command=Off;), !command(Host=192.168.43.201;Dest=192.168.43.203;data=0402000000;group=02;command=Off;), !response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;), !command(Host=192.168.43.201;Dest=192.168.43.202;data=0401000000;group=01;command=On;), !command(Host=192.168.43.201;Dest=192.168.43.203;data=0401000000;group=02;command=On;)]
+
+issue on input: ?response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [!command(Host=192.168.43.201;Dest=192.168.43.202;data=0402000000;group=01;command=Off;), !command(Host=192.168.43.201;Dest=192.168.43.203;data=0402000000;group=02;command=Off;), !response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;), !command(Host=192.168.43.201;Dest=192.168.43.202;data=0401000000;group=01;command=On;), !command(Host=192.168.43.201;Dest=192.168.43.203;data=0401000000;group=02;command=On;)]
+
+issue on output: !response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)
+all card equals 1:false
+set = [?response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;), ?response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+union = [?response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;), ?response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+excluded = [?command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;), ?command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), ?command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), ?command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;)]
+
+Observability :0.6666666666666666
+Controlability :0.8
+
+
+=================C2===================(sensor)
+issue on input: ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight)
+all card equals 1:false
+set = []
+union = [!/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)]
+excluded = [!/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)]
+
+issue on input: ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)
+all card equals 1:false
+set = []
+union = [!/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)]
+excluded = [!/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)]
+
+issue on output: !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi)
+all card equals 1:false
+set = []
+union = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+excluded = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+
+issue on output: !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)
+all card equals 1:false
+set = []
+union = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+excluded = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+
+issue on output: !/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi)
+all card equals 1:false
+set = []
+union = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+excluded = [?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), ?OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)]
+
+Observability :0.0
+Controlability :0.0
+
+
+=================C3===================(gateway)
+issue on input: ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi)
+all card equals 1:true
+set = []
+union = [!OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+excluded = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device), !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+
+issue on input: ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi)
+all card equals 1:true
+set = []
+union = [!OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight)]
+excluded = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device), !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+
+issue on input: ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi)
+all card equals 1:true
+set = []
+union = [!OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+excluded = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device), !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+
+issue on input: ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi)
+all card equals 1:true
+set = []
+union = [!OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight)]
+excluded = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device), !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+
+issue on input: ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)
+all card equals 1:false
+set = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+union = [!command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;), !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)]
+excluded = [!OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device), !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight), !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight)]
+
+issue on output: !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=01;command=On;)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !command(Host=192.168.43.76;Dest=192.168.43.201;data=0401000000;group=02;command=On;)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=01;command=Off;)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=Update Device)
+all card equals 1:true
+set = []
+union = [?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !OK(Host=192.168.43.76;Dest=192.168.43.101;status=200;response=OK;title=SwitchLight)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+issue on output: !command(Host=192.168.43.76;Dest=192.168.43.201;data=0402000000;group=02;command=Off;)
+all card equals 1:false
+set = []
+union = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+excluded = [?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=On;rssi), ?/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=udevice;idx=1;nvalue;svalue=23.00;62.00;3;rssi), ?/json.htm(Host=192.168.43.101;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=2;command=Off;rssi), ?response(Host=192.168.43.201;Dest=192.168.43.76;status=0300;response=00;)]
+
+Observability :0.16666666666666666
+Controlability :0.0
+
+
+=================C4===================(sensor)
+issue on input: ?OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)
+all card equals 1:false
+set = [!/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), !/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi)]
+union = [!/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi), !/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi)]
+excluded = []
+
+issue on output: !/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=On;rssi)
+all card equals 1:true
+set = []
+union = [?OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+excluded = [?OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+
+issue on output: !/json.htm(Host=192.168.43.102;Dest=192.168.43.76;Verb=GET;Uri=/json.htm;type=command;param=switchlight;idx=10;command=Off;rssi)
+all card equals 1:true
+set = []
+union = [?OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+excluded = [?OK(Host=192.168.43.76;Dest=192.168.43.102;status=200;response=OK;title=SwitchLight)]
+
+Observability :0.0
+Controlability :0.0
+
+
+=================C5===================(actuator)
+issue on input: ?command(Host=192.168.43.201;Dest=192.168.43.202;data=0401000000;group=01;command=On;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+excluded = [!response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+
+issue on input: ?command(Host=192.168.43.201;Dest=192.168.43.202;data=0402000000;group=01;command=Off;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+excluded = [!response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)]
+
+issue on output: !response(Host=192.168.43.202;Dest=192.168.43.201;status=0300;response=00;)
+all card equals 1:false
+set = [?command(Host=192.168.43.201;Dest=192.168.43.202;data=0401000000;group=01;command=On;), ?command(Host=192.168.43.201;Dest=192.168.43.202;data=0402000000;group=01;command=Off;)]
+union = [?command(Host=192.168.43.201;Dest=192.168.43.202;data=0401000000;group=01;command=On;), ?command(Host=192.168.43.201;Dest=192.168.43.202;data=0402000000;group=01;command=Off;)]
+excluded = []
+
+Observability :0.0
+Controlability :0.0
+
+
+=================C6===================(actuator)
+issue on input: ?command(Host=192.168.43.201;Dest=192.168.43.203;data=0402000000;group=02;command=Off;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)]
+excluded = [!response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)]
+
+issue on input: ?command(Host=192.168.43.201;Dest=192.168.43.203;data=0401000000;group=02;command=On;)
+all card equals 1:true
+set = []
+union = [!response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)]
+excluded = [!response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)]
+
+issue on output: !response(Host=192.168.43.203;Dest=192.168.43.201;status=0300;response=00;)
+all card equals 1:false
+set = [?command(Host=192.168.43.201;Dest=192.168.43.203;data=0402000000;group=02;command=Off;), ?command(Host=192.168.43.201;Dest=192.168.43.203;data=0401000000;group=02;command=On;)]
+union = [?command(Host=192.168.43.201;Dest=192.168.43.203;data=0402000000;group=02;command=Off;), ?command(Host=192.168.43.201;Dest=192.168.43.203;data=0401000000;group=02;command=On;)]
+excluded = []
+
+Observability :0.0
+Controlability :0.0
+
+
