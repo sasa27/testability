@@ -47,6 +47,40 @@ public class Transition {
 		HashSet<String> res = new HashSet<String>();
 		if (this.isInput()) {
 			for (Transition t: target.getSuccesseurs()) {
+				if (!t.isInput()) {
+					res.add(t.getName());
+				}
+			}
+		}
+		else {	
+			for (Transition t: source.getPredecesseurs()) {
+				if (checked.contains(t)) {
+					Ot = new HashSet<String>();
+					Ot.add(epsilon);
+					return Ot;
+				}
+				if (t.isInput()) {
+					res.add(t.getName());	
+				}
+				else {
+					res.addAll(t.getOt(checked));
+				}
+			}		
+		}
+		Ot = res;
+		return Ot;
+	}
+	
+/*
+	public HashSet<String> getOt(ArrayList<Transition> checked) {
+		if (Ot != null) {
+			return Ot;
+		}
+		checked.add(this);
+		String epsilon = "nope";
+		HashSet<String> res = new HashSet<String>();
+		if (this.isInput()) {
+			for (Transition t: target.getSuccesseurs()) {
 				if (checked.contains(t)) {
 					Ot = new HashSet<String>();
 					Ot.add(epsilon);
@@ -77,7 +111,7 @@ public class Transition {
 		}
 		Ot = res;
 		return Ot;
-	}
+	}*/
 	
 	/*public String getLabel() {
 		return label;

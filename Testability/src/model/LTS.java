@@ -111,6 +111,7 @@ public class LTS {
 		return lts;		
 	}
 	
+	/* get the set of input message */
 	public HashSet<String> getInputs() {
 		HashSet<String> res =  new HashSet<String>();
 		for (Transition t: getTransitions()) {
@@ -121,6 +122,7 @@ public class LTS {
 		return res;
 	}
 	
+	/* get the set of output message */
 	public HashSet<String> getOutputs() {
 		HashSet<String> res =  new HashSet<String>();
 		for (Transition t: getTransitions()) {
