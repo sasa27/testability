@@ -133,6 +133,18 @@ public class LTS {
 		return res;
 	}
 	
+	public String getCompo() {
+		for (Transition t: transitions.values()) {
+			if (t.isInput()) {
+				return t.getDest();
+			}
+			return t.getHost();
+		}
+		System.err.println("set of transition is empty");
+		return "";
+		
+	}
+	
 	/** TODO
 public boolean equals(Object o) {
 	if (o == this)

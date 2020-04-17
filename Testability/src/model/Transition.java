@@ -34,6 +34,28 @@ public class Transition {
 		name = newname;
 	}
 	
+	public String getHost() {
+		String host = name.substring(name.indexOf("Host=") + 5);
+		if (host.contains(";")) {
+			host = host.substring(0, host.indexOf(";"));
+		}	
+		if (host.contains("|||")) {
+			host = host.substring(0, host.indexOf("|||"));
+		}
+		return host;
+	}
+	
+	public String getDest() {
+		String host = name.substring(name.indexOf("Dest=") + 5);
+		if (host.contains(";")) {
+			host = host.substring(0, host.indexOf(";"));
+		}	
+		if (host.contains("|||")) {
+			host = host.substring(0, host.indexOf("|||"));
+		}
+		return host;
+	}
+	
 	public HashSet<String> getOt(){
 		return getOt(new ArrayList<Transition>());
 	}
@@ -52,7 +74,7 @@ public class Transition {
 				}
 			}
 		}
-		else {	
+		else if (this.isOutput()) {	
 			for (Transition t: source.getPredecesseurs()) {
 				if (checked.contains(t)) {
 					Ot = new HashSet<String>();
@@ -160,15 +182,19 @@ public class Transition {
 		if (name.startsWith("?")){
 			return true;
 		}
-		else if (name.startsWith("!")){
-			return false;
-		}
 		else {
-			System.err.println("bad fromat, input should starts with ? and output with !, got :" + name);
-			return false;//TODO gestion d'erreur
+			return false;
 		}
 	}
 	
+	public boolean isOutput() {
+		if (name.startsWith("!")){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	
 }

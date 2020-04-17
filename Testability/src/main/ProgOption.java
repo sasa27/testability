@@ -16,9 +16,10 @@ public class ProgOption {
 		    final CommandLine line = parser.parse(options, args);
 
 		    Main.dot = line.getOptionValue("dot");
+		    Main.dep = line.getOptionValue("dep");
 		    
 	    }catch(Exception e) {
-	    	System.out.println("Usage : Main -d <dot file>"
+	    	System.out.println("Usage : Main -i <dot file> -d <folder containing the DAGs>"
 	    			);  
 	    	System.exit(1);}
 	}
@@ -32,11 +33,20 @@ public class ProgOption {
 				.argName("dot")
 				.required(true)
 				.build();
+		
+		final Option depFileOption = Option.builder("d")
+				.longOpt("dep")
+				.desc("dag")
+				.hasArg(true)
+				.argName("dep")
+				.required(true)
+				.build();
 			
 	    final Options options = new Options();
 	
 	    options.addOption(dotFileOption);
-
+	    options.addOption(depFileOption);
+	    
 	    return options;
 	}
 }
