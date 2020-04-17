@@ -5,6 +5,6 @@ Check the observability and controlability of a device from a model
 After compilation in folder **bin**
 
 ```
-java -cp bin:lib/commons-cli-1.4.jar main.Main -i <dot file> -d <folder containing the DAGs
+java -cp bin:lib/commons-cli-1.4.jar main.Main -i <dot file> -d <folder containing the DAGs>
 ```
 **\<dot file\>** : your input dot file.
