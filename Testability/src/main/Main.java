@@ -114,7 +114,7 @@ public class Main {
 	private static double controlability(LTS model) {
 		int ct = 0;
 		for (String out: model.getOutputs()) {
-			System.out.println("output: " + out);
+			//System.out.println("output: " + out);
 			HashSet<String> union = new HashSet<String>();
 			HashSet<String> exclu = new HashSet<String>();
 			for (Transition t: model.getTransitions()) {
@@ -127,10 +127,10 @@ public class Main {
 			}
 			HashSet<String> set = new HashSet<String>();
 			set.addAll(union);
-			System.out.println("union: " + union);
+			//System.out.println("union: " + union);
 			set.removeAll(exclu);
-			System.out.println("exclu:"  + exclu);
-			System.out.println("set: " + set + "\n");
+			//System.out.println("exclu:"  + exclu);
+			//System.out.println("set: " + set + "\n");
 			if ((!set.isEmpty()) && set.size() == union.size() && (!union.contains("nope"))) {
 				ct++;
 			}
