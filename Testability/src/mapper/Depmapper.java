@@ -7,9 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import model.Dependencies;
-import model.LTS;
-import model.State;
-import model.Transition;
 
 public class Depmapper {
 
@@ -18,6 +15,10 @@ public class Depmapper {
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			for (File file : files) {
+				if (!file.getName().endsWith(".dot")) {
+					continue;
+				}
+				//System.out.println(file);
 				String c = "";
 				try {
 					BufferedReader br = new BufferedReader(new FileReader(file));
